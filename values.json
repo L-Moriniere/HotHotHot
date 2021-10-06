@@ -1,4 +1,12 @@
 {
-  "tempInt" : 19,
-  "tempExt" : 35,
+	"interieur": {
+		"temperature": 20,
+		"min": 18,
+		"max": 22
+	},
+	"exterieur": {
+		"temperature": 28,
+		"min": 21,
+		"max": 33
+	}
 }

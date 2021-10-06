@@ -12,15 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat+Alternates:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-  <script src="./js/app.js" type="text/javascript">
-
-  </script>
+  <script src="./js/app.js" type="text/javascript"></script>
+  <script type="text/javascript" src="./values.json"></script>
 
 </head>
 
 
 
 <body>
+
   <header class=" grid-x align-justify">
 
     <a href="settings.html" class="cell small-4 show-for-small-only">
@@ -60,16 +60,16 @@
         <section class="grid-x align-spaced">
           <section class="cell small-9 medium-7 large-5">
 
-            <article class="card ">
-              <h4 class="text-center card-section">21°C</h4>
+            <article id="card" class="card ">
+              <h4 class="text-center card-section" id="temperatureInt">21°C</h4>
 
               <section class="cell small-1 ">
                 <i class="fas fa-info-circle info float-right"></i>
               </section>
 
               <section class="grid-x">
-                <p class="cell small-6 text-center"><i class="fas fa-chevron-down"></i> 17°C</p>
-                <p class="cell small-6 text-center"><i class="fas fa-chevron-up"></i> 24°C</p>
+                <p class="cell small-6 text-center" id="intMin"><i class="fas fa-chevron-down"></i> 17°C</p>
+                <p class="cell small-6 text-center" id="intMax" ><i class="fas fa-chevron-up"></i> 24°C</p>
               </section>
 
               <hr class="subHr">
@@ -86,13 +86,13 @@
 
       <section class="cell">
         <section class="grid-x align-center large-offset-2">
-          <h3 class="cell small-8 ">Température extérieure</h3>
+          <h3 class="cell small-8 ">Température extérieure </h3>
         </section>
 
         <section class="grid-x align-center ">
           <section class="cell small-9 medium-7 large-5">
             <article class="card ">
-              <h4 class="text-center card-section">31°C</h4>
+              <h4 class="text-center card-section" id="temperatureExt">31°C</h4>
 
               <section class="cell small-1">
                 <i class="fas fa-info-circle info float-right"></i>
@@ -100,8 +100,8 @@
 
               <section class="grid-x">
 
-                <p class="cell small-6 text-center"><i class="fas fa-chevron-down"></i> 22°C</p>
-                <p class="cell small-6 text-center"><i class="fas fa-chevron-up"></i> 35°C</p>
+                <p class="cell small-6 text-center" id="extMin"><i class="fas fa-chevron-down"></i> 22°C</p>
+                <p class="cell small-6 text-center" id="extMax"><i class="fas fa-chevron-up"></i> 35°C</p>
               </section>
               <hr class="subHr">
               <p class="text-center">Température agréable</p>
@@ -124,6 +124,34 @@
     <canvas id="canvas" width="300" height="300"></canvas>
   </section>
 
+
+
+
+<script type="text/javascript">
+  fetch('./values.json').then(response =>{
+    return response.json();
+    })
+.then (data => {
+  console.log(data.interieur.temperature);
+
+
+
+  document.getElementById("temperatureInt").innerHTML = data.interieur.temperature+" °C";
+  document.getElementById("intMin").innerHTML = '<i class="fas fa-chevron-down"></i> '+data.interieur.min+" °C";
+  document.getElementById("intMax").innerHTML = '<i class="fas fa-chevron-up"></i> '+data.interieur.max+" °C";
+
+  document.getElementById("temperatureExt").innerHTML = data.exterieur.temperature+" °C";
+  document.getElementById("extMin").innerHTML = '<i class="fas fa-chevron-down"></i> '+data.exterieur.min+" °C";
+  document.getElementById("extMax").innerHTML = '<i class="fas fa-chevron-up"></i> '+data.exterieur.max+" °C";
+
+
+}).catch(err =>{
+  console.log("erreur chargement json");
+});
+
+
+
+</script>
 
 </body>
 </html>
