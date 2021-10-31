@@ -6,29 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hot Hot Hot</title>
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/myCss.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Montserrat+Alternates:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-  <script src="./js/app.js" type="text/javascript"></script>
-  <script type="text/javascript" src="./values.json"></script>
+  <script src="./js/app.js"></script>
+  <script src="./values.json"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
 
-
-
 <body>
 
+  <!-- header -->
   <header class=" grid-x align-justify">
-
     <a href="settings.html" class="cell small-4 show-for-small-only">
       <i class="fas fa-cog icon"></i>
     </a>
 
-    <a href="#" class="cell small-2 show-for-small-only"><i class="fas fa-user icon" style="font-size: 30px;"></i></a>
-
+    <a href="profile.html" class="cell small-2 show-for-small-only"><i class="fas fa-user icon" style="font-size: 30px;"></i></a>
+    <!-- menu -->
     <nav class="cell small-2 medium-8 large-8 hide-for-small-only">
       <ul class="menu h3">
         <li><i class="fi-list"></i></li>
@@ -44,114 +42,131 @@
   </section>
 
 
+  <!-- Modal température interieure-->
+  <section id="modalInt" class="modal grid-x" style="display:none">
+    <h6>modal</h6>
+    <section id="modalContenuInt" class="modal-content cell small-9 medium-5 large-3">
+      <h6>modal contenu</h6>
+      <span class="close" onclick="closeModalInt()">&times;</span>
+      <h2 class="text-center" >Détails température</h2>
+      <br>
+      <p class="text-center" id="infoTemperatureInt">La température actuelle est normale</p>
+    </section>
+  </section>
+
+  <!-- Modal température extérieure-->
+  <section id="modalExt" class="modal grid-x " style="display:none">
+    <h6>modal</h6>
+    <section id="modalContenuExt" class="modal-content cell small-9 medium-5 large-3">
+      <h6>modal contenu</h6>
+      <span class="close" onclick="closeModalExt()">&times;</span>
+      <h2 class="text-center" >Détails température</h2>
+      <br>
+      <p class="text-center" id="infoTemperatureExt">La température actuelle est normale</p>
+    </section>
+  </section>
+
+
   <h2 class="text-center">Mardi 5 octobre</h2>
   <br><br>
 
   <!-- article pour les capteurs -->
   <article class="capteurs" >
+    <h6>Températures</h6>
 
     <section class="grid-x grid-padding-x small-up-1 medium-up-1 large-up-2">
+      <h6>Bloc température</h6>
 
-      <section class="cell align-center">
+      <!-- card température interieure -->
+      <section class="cell">
+        <h6>Bloc température intérieure</h6>
         <section class="grid-x align-spaced large-offset-2">
           <h3 class="cell small-8 ">Température intérieure</h3>
         </section>
 
         <section class="grid-x align-spaced">
-          <section class="cell small-9 medium-7 large-5">
-
-            <article id="card" class="card ">
-              <h4 class="text-center card-section" id="temperatureInt">21°C</h4>
-
+          <h6>Température</h6>
+          <section class="cell small-9 medium-7 large-5" >
+            <h6>Température intérieure du jour</h6>
+            <article id="cardInt" class="card ">
+              <h4 class="text-center card-section" id="intTemperature" >0°C</h4>
               <section class="cell small-1 ">
-                <i class="fas fa-info-circle info float-right"></i>
+                <h6>information</h6>
+                <i class="fas fa-info-circle float-right info" onclick="afficheModalInt();"></i>
               </section>
 
               <section class="grid-x">
+                <h6>Température min et max</h6>
                 <p class="cell small-6 text-center" id="intMin"><i class="fas fa-chevron-down"></i> 17°C</p>
                 <p class="cell small-6 text-center" id="intMax" ><i class="fas fa-chevron-up"></i> 24°C</p>
               </section>
 
               <hr class="subHr">
-              <p class="text-center">Coolos</p>
+              <p class="text-center" id="alertInt">Coolos</p>
               <br>
 
             </article>
-
           </section>
-
         </section>
-
       </section>
 
+      <!-- card température interieure -->
       <section class="cell">
+        <h6>Bloc Température extérieure</h6>
         <section class="grid-x align-center large-offset-2">
           <h3 class="cell small-8 ">Température extérieure </h3>
         </section>
-
         <section class="grid-x align-center ">
+          <h6>Température</h6>
           <section class="cell small-9 medium-7 large-5">
-            <article class="card ">
-              <h4 class="text-center card-section" id="temperatureExt">31°C</h4>
+            <h6>Tempéarture extérieure du jour</h6>
+            <article class="card" id="cardExt">
+              <h4 class="text-center card-section" id="extTemperature">0°C</h4>
 
-              <section class="cell small-1">
-                <i class="fas fa-info-circle info float-right"></i>
+              <section class="cell small-1 ">
+                <h6>information</h6>
+                <i class="fas fa-info-circle float-right info" onclick="afficheModalExt();"></i>
               </section>
 
               <section class="grid-x">
-
+                <h6>Température extérieure min et max</h6>
                 <p class="cell small-6 text-center" id="extMin"><i class="fas fa-chevron-down"></i> 22°C</p>
                 <p class="cell small-6 text-center" id="extMax"><i class="fas fa-chevron-up"></i> 35°C</p>
               </section>
               <hr class="subHr">
-              <p class="text-center">Température agréable</p>
+              <p class="text-center" id="alertExt">Température agréable</p>
               <br>
 
             </article>
           </section>
         </section>
-
       </section>
 
     </section>
   </article>
 
   <hr>
+
+  <!-- Historique -->
   <section>
+
+    <h6>Historique</h6>
     <section class="grid-x align-center">
       <h3 class="cell small-8 medium-8 large-8 ">Historique</h3>
     </section>
-    <canvas id="canvas" width="300" height="300"></canvas>
+
+    <section class="grid-x align-center">
+      <h6>Canvas container</h6>
+      <section class="cell small-9 medium-7 large-5">
+        <h6>Canvas</h6>
+        <canvas id="historique" width="300" height="300"></canvas>
+      </section>
+    </section>
+
   </section>
 
-
-
-
-<script type="text/javascript">
-  fetch('./values.json').then(response =>{
-    return response.json();
-    })
-.then (data => {
-  console.log(data.interieur.temperature);
-
-
-
-  document.getElementById("temperatureInt").innerHTML = data.interieur.temperature+" °C";
-  document.getElementById("intMin").innerHTML = '<i class="fas fa-chevron-down"></i> '+data.interieur.min+" °C";
-  document.getElementById("intMax").innerHTML = '<i class="fas fa-chevron-up"></i> '+data.interieur.max+" °C";
-
-  document.getElementById("temperatureExt").innerHTML = data.exterieur.temperature+" °C";
-  document.getElementById("extMin").innerHTML = '<i class="fas fa-chevron-down"></i> '+data.exterieur.min+" °C";
-  document.getElementById("extMax").innerHTML = '<i class="fas fa-chevron-up"></i> '+data.exterieur.max+" °C";
-
-
-}).catch(err =>{
-  console.log("erreur chargement json");
-});
-
-
-
-</script>
+  <!-- SCRIPT -->
+  <script src="./js/hot.js"></script>
 
 </body>
 </html>
